@@ -9,3 +9,10 @@
 20.times do
     Photo.create(username: Faker::Name.name.downcase.gsub(/\W/, '_'), caption: Faker::Lorem.paragraph, created_at: Faker::Date.backward(30), likes_count: Faker::Number.number(6).to_i, url: "http://lorempixel.com/600/600")
 end
+
+Photo.all.each do |p|
+  rand(10).times do
+    p.comments << Comment.new(content: Faker::Lorem.paragraph, owner: Faker::Name.name)
+    p.save!
+  end
+end
